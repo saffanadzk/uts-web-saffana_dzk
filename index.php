@@ -88,6 +88,7 @@ $songs = mysqli_query($conn, "SELECT * FROM songs");
                         <th>Artist</th>
                         <th>Album</th>
                         <th>Duration</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -108,6 +109,11 @@ $songs = mysqli_query($conn, "SELECT * FROM songs");
                                 $seconds = $song['duration'] % 60;
                                 echo sprintf("%d:%02d", $minutes, $seconds);
                                 ?>
+                            </td>
+                            <td>
+                                <a href="edit.php?id=<?= $song['id']; ?>" class="btn-edit">Edit</a>
+                                <a href="delete.php?id=<?= $song['id']; ?>" class="btn-delete" onclick="return confirm('Apakah kamu yakin akan menghapus ?');">Delete</a>
+                            style="color: #ff4d4d; font-weight: bold; text-decoration: none; font-size: 12px;">Delete</a>
                             </td>
                             </tr>
                             <?php endwhile; ?>
