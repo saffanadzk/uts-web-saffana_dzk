@@ -1,15 +1,24 @@
 <?php
 include 'koneksi.php';
+
 if (isset($_POST['login'])) {
-    $username = $_POST['username'];
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = $_POST['password'];
-    $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+
+    $query = "SELECT * FROM users WHERE username='$username'";
     $result = mysqli_query($conn, $query);
     if (mysqli_num_rows($result) > 0) {
-        header("Location: index.php");
-        exit();
+        $row = mysqli_fetch_assoc($result);
+        if (password_verify($password, $row['password'])) {
+            session_start();
+            $_SESSION['username'] = $username;
+            header("Location: index.php");
+            exit();
+        } else {
+            $error = "Password salah!";
+        }
     } else {
-        $error = "Login gagal. Periksa username dan password Anda.";
+        $error = "Username tidak ditemukan!";
     }
 }
 ?>
@@ -18,7 +27,7 @@ if (isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <title>Login Spotify</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         * {
             margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif;
@@ -37,7 +46,7 @@ if (isset($_POST['login'])) {
         }
         input:focus {
             border-color: #1DB954; outline: none; background-color: #333;
-        }       
+        }    
         button {
             width: 100%; padding: 14px; background-color: #1DB954; border: none; border-radius: 5px; color: white; font-size: 14px; cursor: pointer; font-weight: 700; text-transform: uppercase; transition: transform 0.2s; letter-spacing: 1px; margin-top: 10px;
         }

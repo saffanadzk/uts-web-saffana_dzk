@@ -1,11 +1,22 @@
 <?php
 session_start();
+include 'koneksi.php';
+
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
-    include 'koneksi.php';
     exit();
 }
-$songs = mysqli_query($conn, "SELECT * FROM songs");
+
+$username = $_SESSION['username'];
+$query = "SELECT * FROM users WHERE username='$username'";
+$result = mysqli_query($conn, $query); 
+$row = mysqli_fetch_assoc($result);
+$result_songs = mysqli_query($conn, "SELECT * FROM songs");
+if (!$result_songs) {
+    die("Query gagal: " . mysqli_error($conn));
+}
+
+$no = 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,7 +88,7 @@ $songs = mysqli_query($conn, "SELECT * FROM songs");
     <div class="main-content">
         <header>
             <h2>Welcome, <?php echo $_SESSION['username']; ?>!</h2>
-            <a href="Add song.php" class="btn-add">Add New Song</a>
+            <a href="addsong.php" class="btn-add">Add New Song</a>
             <header>
 
             <div class="playlist-section">
@@ -94,29 +105,36 @@ $songs = mysqli_query($conn, "SELECT * FROM songs");
                 <tbody>
                     <?php 
                     $no = 1;
-                    while ($song = mysqli_fetch_assoc($songs)) :
+                    while ($song = mysqli_fetch_assoc($result_songs)) :
                     ?>
                         <tr>
                             <td><?= $no++; ?></td>
                             <td>
-                                <div class="song-title"><?= $song['title']; ?></div>
+                                <div class="song-title" style="font-weight: bold; color: #1DB954;">
+                                    <?= $song['title'] ?? 'No Title'; ?>
+                                </div>
                             </td>
                             <td><?= $song['artist']; ?></td>
                             <td><?= $song['album']; ?></td>
                             <td>
                                 <?php
-                                $minutes = floor($song['duration'] / 60);
-                                $seconds = $song['duration'] % 60;
-                                echo sprintf("%d:%02d", $minutes, $seconds);
+                                if (isset($song['duration'])) {
+                                    $detik = $song['duration'] % 60;
+                                    $minutes = floor($song['duration'] / 60);
+                                    echo sprintf("%d:%02d", $minutes, $detik);
+                                } else {
+                                    echo "0:00";
+                                }
                                 ?>
                             </td>
                             <td>
-                                <a href="edit.php?id=<?= $song['id']; ?>" class="btn-edit">Edit</a>
-                                <a href="delete.php?id=<?= $song['id']; ?>" class="btn-delete" onclick="return confirm('Apakah kamu yakin akan menghapus ?');">Delete</a>
-                            style="color: #ff4d4d; font-weight: bold; text-decoration: none; font-size: 12px;">Delete</a>
+                                <button class="btn-play" style="border-radius: 50px; background: #1DB954; color: white; border: none; padding: 5px 15px; cursor: pointer;">
+                                    Play
+                                </button>
                             </td>
-                            </tr>
-                            <?php endwhile; ?>
+                        </tr>
+                    <?php endwhile; 
+                    ?>
                 </tbody>
                 </table>
             </div>
