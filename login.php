@@ -33,37 +33,40 @@ if (isset($_POST['login'])) {
             margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif;
         }
         body {
-            background: linear-gradient(rgba(166, 216, 29, 0.8), rgba(18, 18, 18, 0.9)), url('https://png.pngtree.com/thumb_back/fw800/background/20250907/pngtree-music-streaming-app-on-phone-with-earbuds-at-night-image_18955606.webp'); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; height: 100vh;
+            background: linear-gradient(135deg, #889063 0%, #354024 100%), url('https://png.pngtree.com/thumb_back/fw800/background/20250907/pngtree-music-streaming-app-on-phone-with-earbuds-at-night-image_18955606.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Segoe UI', sans-serif;
         }
         .box {
-            background-color: #191414; padding: 40px 30px ; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); text-align: center;
+            background-color: #CFBB99; padding: 40px 30px ; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); text-align: center;
             }
         .logo {
-            color: #1DB954; font-size: 26px; font-weight: bold; text-align: center; margin-bottom: 30px; letter-spacing: -1px;
+            color: #4C3D19; font-size: 26px; font-weight: bold; text-align: center; margin-bottom: 30px; letter-spacing: -1px;
+        }
+        h2 {
+            color: #4C3D19; margin-bottom: 20px;
         }
         input {
-            width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid transparent; border-radius: 4px; background-color: #333; color: white; transition: all 0.3s ease; font-size: 14px;     
+            width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid #889063; border-radius: 4px; background-color: #E5D7C4; color: #354024; transition: all 0.3s ease; font-size: 14px;     
         }
         input:focus {
-            border-color: #1DB954; outline: none; background-color: #333;
+            border-color: #4B3621; outline: none; background-color: #F0E6D6;
         }    
         button {
-            width: 100%; padding: 14px; background-color: #1DB954; border: none; border-radius: 5px; color: white; font-size: 14px; cursor: pointer; font-weight: 700; text-transform: uppercase; transition: transform 0.2s; letter-spacing: 1px; margin-top: 10px;
+            width: 100%; padding: 14px; background-color: #4C3D19; border: none; border-radius: 5px; color: #E5D7C4; background-color: 0.3s; font-size: 14px; cursor: pointer; font-weight: 700; text-transform: uppercase; transition: transform 0.2s; letter-spacing: 1px; margin-top: 10px;
         }
         button:hover {
-            background-color: #1ed760; transform: translateY(-2px);
+            background-color: #352819; transform: translateY(-2px);
         }
         .register-link {
-            color: #b3b3b3; display: block; text-align: center; margin-top: 25px; text-decoration: none; font-size: none; font-size: 13px;
+            color: #4C3D19; display: block; text-align: center; margin-top: 25px; text-decoration: none; font-size: none; font-size: 13px;
         }
         .register-link b {
-            color: white;
+            color: #354024; font-weight: bold;
         }
         .register-link:hover b {
-            color: #1DB954; text-decoration: underline;
+            text-decoration: underline;
         }
         .error-message {
-            background-color: #ff4d4d; color: white; margin-bottom: 15px; font-size: 12px;
+            background-color: #7A1012; color: #E5D7C4; margin-bottom: 15px; font-size: 12px;
         }
     </style>
 </head>

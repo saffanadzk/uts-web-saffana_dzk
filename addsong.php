@@ -11,7 +11,7 @@ if (isset($_POST['simpan_lagu'])) {
     $genre = mysqli_real_escape_string($conn, $_POST['genre']);
     $duration_raw = $_POST['duration'];
 
-    if (empty($title) || empty($artist) || empty($album) || empty($genre) || empty($duration)) {
+    if (empty($title) || empty($artist) || empty($album) || empty($genre) || empty($duration_raw)) {
         $pesan = 'Semua field harus diisi.';
     } else {
        $parts = explode(':', $duration_raw);
@@ -39,57 +39,71 @@ if (isset($_POST['simpan_lagu'])) {
     <title>Tambah Lagu - Spotify</title>
     <style>
         :root {
-            --spotify-green: #1DB954;
-            --spotify-dark: #282828;
-            --spotify-darker: #181515;
+            --spotify-kombu-green: #354024;
+            --spotify-moss-green: #889063;
+            --spotify-tan: #CFBB99;
+            --spotify-bone: #E5D7C4;
+            --spotify-cafe-noir: #4B3621;
         }
         body {
-            background-color: #121212; background-color: var(--spotify-darker); color: white; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;
+            background-color: #354024; background-color: var(--spotify-kombu-green); color: white; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;
         }
         .card {
-            background-color: #181818; background-color: var(--spotify-dark); padding: 30px; border-radius: 10px; width: 100%; max-width: 400px; box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            background-color: #FBF9E4; background-color: var(--spotify-pearl); padding: 40px; border-radius: 15px; width: 100%; max-width: 380px; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
         nav {
-            background-color: var(--spotify-dark); padding: 20px; display: flex; flex-direction: column; border-right: 1px solid var(--spotify-dark); position: fixed; left: 0; top: 0; bottom: 0; width: 250px;
+            background-color: #1a1f11; padding: 20px; display: flex; flex-direction: column; border-right: 1px solid var(--spotify-moss-green); position: fixed; left: 0; top: 0; bottom: 0; width: 250px;
+        }
+        nav .logo {
+            font-size: 24px; font-weight: bold; color: var(--spotify-moss-green); margin-bottom: 40px;
         }
         nav a {
-            color: #b3b3b3; text-decoration: none; margin-bottom: 20px; font-size: 14px; font-weight: bold; transition: color 0.3s;
+            color: #BAC2C1; text-decoration: none; margin-bottom: 20px; font-size: 14px; font-weight: bold; transition: color 0.3s;
         }
         nav a:hover {
-            color: #fff;
+            color: var(--spotify-bone); 
         }
         .container {
-            padding: 20px; flex: 1; display: flex; justify-content: center; allign-items: center;
+            padding: 20px; flex: 1; display: flex; justify-content: center; allign-items: center; background: linear-gradient(180deg, var(--spotify-kombu-green) 0%, #2b331d 100%); margin-left: 250px; 
         }
         .card {
-            background-color: var(--spotify-darker); padding: 30px; border-radius: 10px; width: 100%; max-width: 400px; box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            background-color: var(--spotify-tan); padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
         h2 {
-            color: var(--spotify-green); text-align: center; margin-top: 0;
+            color: var(--spotify-cafe-noir); text-align: center; margin-top: 0;
         }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         label {
-            display: block; margin-bottom: 5px; font-size: 14px; color: #b3b3b3;
+            display: block; margin-bottom: 8px; font-size: 13px; color: var(--spotify-cafe-noir);
         }
         input {
-            width: 100%; padding: 10px; border-radius: 5px; border: 1px solid transparent; background-color: var(--spotify-darker); color: white; font-size: 14px; border-radius: 4px; box-sizing: border-box;
+            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #bba686; background-color: var(--spotify-bone); color: var(--spotify-kombu-green); font-size: 14px; box-sizing: border-box; transition: all 0.3s ease;
         }
         input:focus {
-            outline: none; border-color: var(--spotify-green);
+            outline: none; border-color: var(--spotify-cafe-noir); box-shadow: 0 0 8px rgba(75, 54, 33, 0.2);
         }.btn-save {
-            background-color: var(--spotify-green); color: #000; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 14px; width: 100%; margin-top: 10px;
+            background-color: var(--spotify-cafe-noir); color: var(--spotify-bone); border: none; padding: 14px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; width: 100%; margin-top: 15px; transition: 0.3s ;
         }
         .btn-save:hover {
-            transform: scale(1.05); background-color: #1ed760;
+            transform: scale(1.05); background-color: #352819;
+        }
+        .btn-cancel {
+            background-color: rgba(75, 54, 33, 0.1); color: #7A1012; border-color: #7A1012; 
         }
         .error-message {
-            background-color: #ff4d4d; color: white; font-size: 14px; padding: 10px; border-radius: 5px; margin-bottom: 20px;
+            background-color: #7A1012; font-size: 14px; padding: 12px; border-radius: 5px; margin-bottom: 20px;
+        }
+        .logout-btn {
+            margin-top: auto; color: #ff4d4d; text-decoration: none; font-weight: bold; font-size: 14px; transition: 0.3s; padding: 10px 0;
+        }
+        .logout-btn:hover {
+            color: #ff6666; text-decoration: underline;
         }
         @media (max-width: 600px) {
             nav {
-                flex-direction: column; gap: 10px; width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--spotify-dark);
+                flex-direction: column; gap: 10px; width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--spotify-midnight);
             }
         }
     </style>
@@ -99,7 +113,7 @@ if (isset($_POST['simpan_lagu'])) {
         <div style="color: var(--spotify-green); font-size: 24px; font-weight: bold; margin-bottom: 30px;">Spotify</div>
         <div>
             <a href="index.php">Home</a>
-            <a href="logout.php" style="color: #ff4d4d;">Logout</a>
+            <a href="index.php" class="btn-cancel">kembali</a>
         </div>
     </nav>
     <div class="container">
@@ -129,7 +143,7 @@ if (isset($_POST['simpan_lagu'])) {
                     <label for="Duration"></label>
                     <input type="text" name="duration" placeholder="Masukkan durasi lagu (mm:ss)" required>
                 </div>
-                <button type="submit" name="simpan_lagu" class="btn-save">Simpan Lagu</button>
+                <button type="submit" name="simpan_lagu" class="btn-save">Simpan ke Playlist</button>
             </form>
         </div>
     </div>
