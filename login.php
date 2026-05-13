@@ -33,7 +33,7 @@ if (isset($_POST['login'])) {
             margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif;
         }
         body {
-            background: linear-gradient(135deg, #889063 0%, #354024 100%), url('https://png.pngtree.com/thumb_back/fw800/background/20250907/pngtree-music-streaming-app-on-phone-with-earbuds-at-night-image_18955606.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, rgba(136, 144, 99, 0.7) 0%, rgba(53, 64, 36, 0.8) 100%), url('https://png.pngtree.com/thumb_back/fw800/background/20250907/pngtree-music-streaming-app-on-phone-with-earbuds-at-night-image_18955606.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Segoe UI', sans-serif;
         }
         .box {
             background-color: #CFBB99; padding: 40px 30px ; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); text-align: center;
