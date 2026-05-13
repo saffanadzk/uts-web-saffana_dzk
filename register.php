@@ -32,49 +32,25 @@ if (isset($_POST['register'])) {
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Daftar Spotify</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
-        body {
-            background-color: #121212; /* Hitam pekat Spotify */
-            display: flex; justify-content: center; align-items: center; height: 100vh;
-        }
-        .box {
-            background-color: #191414; padding: 40px; border-radius: 12px; 
-            width: 100%; max-width: 400px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .logo { color: #1DB954; font-size: 28px; font-weight: bold; margin-bottom: 20px; }
-        h3 { color: white; font-size: 16px; margin-bottom: 25px; }
-        input {
-            width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 8px; 
-            border: 1px solid #333; background-color: #282828; color: white;
-        }
-        input:focus { border-color: #1DB954; outline: none; }
-        button {
-            width: 100%; padding: 14px; background-color: #1DB954; border: none; 
-            border-radius: 50px; color: white; font-weight: bold;
-            text-transform: uppercase; cursor: pointer; transition: 0.3s;
-        }
-        button:hover { background-color: #1ed760; transform: scale(1.02); }
-        .error-message { background-color: #ff4d4d; color: white; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 13px; }
-        .login-link { color: #b3b3b3; text-decoration: none; font-size: 13px; display: block; margin-top: 25px; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="box">
-        <div class="logo">Spotify</div>
-        <h3>Daftar Akun Baru</h3>
+        <div class="logo">Daftar Akun naaSound</div>
         
-        <?php if ($error) { echo "<div class='error-message'>$error</div>"; } ?>
-        <form method="POST" action="register.php"> <input type="text" name="username" placeholder="Username" required>
+        <?php if (isset($error)) { echo "<div class='error-message'>$error</div>"; } ?>
+
+        <form method="POST" action="">
+            <input type="text" name="username" placeholder="Username" required>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="password" name="confirm_password" placeholder="Konfirmasi Password" required>
+            
             <button type="submit" name="register">Daftar</button>
+            
+            <a href="login.php" class="register-link">Sudah punya akun? <b>Login sekarang</b></a>
         </form>
-        
-        <a href="login.php" class="login-link">Sudah punya akun? <b style="color:white">Login di sini</b></a>
     </div>
+</body>
 </body>
 </html>
