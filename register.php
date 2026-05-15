@@ -1,56 +1,54 @@
 <?php
 include 'koneksi.php';
 
-$error = '';
-$success = '';
-
 if (isset($_POST['register'])) {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
 
     if ($password !== $confirm_password) {
-        $error = 'Password dan Konfirmasi Password tidak cocok.';
+        $error = "Passwords do not match!";
     } else {
-        $check_email = mysqli_query($conn, "SELECT * FROM users WHERE email='$email'");
-        if (mysqli_num_rows($check_email) > 0) {
-            $error = 'Email sudah terdaftar.';
+        $cek = mysqli_query($conn, "SELECT * FROM users WHERE username='$username'");
+        if(mysqli_num_rows($cek) > 0) {
+            $error = "Username already taken!";
         } else {
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $insert = mysqli_query($conn, "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed_password')");
-            if ($insert) {
-                header("Location: login.php");
-                exit(); 
-            } else {
-                $error = 'Gagal menyimpan ke database: ' . mysqli_error($conn);
-            }
+            $query = mysqli_query($conn, "INSERT INTO users (username, password) VALUES ('$username', '$password')");
+        if ($query) {
+            header("Location: auth.php");
+            exit();
+        } else {
+            $error = "Failed to register!";
         }
+    }
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="box">
-        <div class="logo">Daftar Akun naaSound</div>
-        
-        <?php if (isset($error)) { echo "<div class='error-message'>$error</div>"; } ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - naaSound</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body class="auth-page"> <div class="box"> 
+        <p style="color: #4C3D19; font-weight: bold; margin-bottom: 25px; font-size: 20px;">Create New Account</p>
+        <?php if(isset($error)) : ?>
+            <div class="error-message"><?= $error; ?></div>
+        <?php endif; ?>
         <form method="POST" action="">
             <input type="text" name="username" placeholder="Username" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="password" name="confirm_password" placeholder="Konfirmasi Password" required>
-            
-            <button type="submit" name="register">Daftar</button>
-            
-            <a href="login.php" class="register-link">Sudah punya akun? <b>Login sekarang</b></a>
+            <input type="email" name="email" placeholder="Email" required> <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+    
+            <button type="submit" name="register">Sign Up</button>
         </form>
+        <div class="divider">
+            <span>Have an account?</span>
+        </div>
+        <a href="auth.php" class="register-link">Login Now</a>
     </div>
-</body>
 </body>
 </html>
